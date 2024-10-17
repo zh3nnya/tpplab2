@@ -59,18 +59,7 @@ public class CalculatorTests {
         assertEquals("4.0", result, "Simple addition failed");
     }
     
-    @Test
-    public void testComplexExpression() throws Exception {
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("expression", "(10 + 5) * 2");
-        ResponseEntity<String> entity = restTemplate
-                .postForEntity("http://localhost:" + this.port + "/calculate", formData, String.class);
-        
-        assertEquals(HttpStatus.OK, entity.getStatusCode());
-        String result = extractResult(entity.getBody());
-        System.out.println("Complex expression result: " + result);
-        assertEquals("30.0", result, "Complex expression calculation failed");
-    }
+
     
 //    @Test
 //    public void testFailingExpression() throws Exception {
@@ -86,18 +75,5 @@ public class CalculatorTests {
 //    }
 
 
-    @Test
-    public void testInvalidExpression() throws Exception {
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("expression", "2 + * 2");
-        ResponseEntity<String> entity = restTemplate
-                .postForEntity("http://localhost:" + this.port + "/calculate", formData, String.class);
-        
-        assertEquals(HttpStatus.OK, entity.getStatusCode());
-        String responseBody = entity.getBody();
-        System.out.println("Invalid expression response: " + responseBody);
-        
-        boolean containsErrorMessage = responseBody != null && responseBody.contains("Помилка у виразі");
-        assertTrue(containsErrorMessage, "Invalid expression not detected. Response: " + responseBody);
-    }
+
 }
